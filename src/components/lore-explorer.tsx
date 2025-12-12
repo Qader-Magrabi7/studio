@@ -353,21 +353,21 @@ const ContactUsSection = () => {
     };
 
     return (
-        <Card className="shadow-lg bg-white text-black">
+        <Card className="shadow-lg">
             <CardHeader>
                 <CardTitle className="font-headline text-2xl flex items-center gap-2">
                     <Mail /> Contact Us
                 </CardTitle>
-                <CardDescription className="text-gray-600">Have questions or feedback? Send us a message.</CardDescription>
+                <CardDescription>Have questions or feedback? Send us a message.</CardDescription>
             </CardHeader>
             <CardContent>
                 <form onSubmit={handleContactSubmit} className="grid gap-4">
                     <div className="grid sm:grid-cols-2 gap-4">
-                        <Input placeholder="Your Name" required className="bg-gray-100 border-gray-300 placeholder:text-gray-500"/>
-                        <Input type="email" placeholder="Your Email" required className="bg-gray-100 border-gray-300 placeholder:text-gray-500"/>
+                        <Input placeholder="Your Name" required className="bg-background border-input"/>
+                        <Input type="email" placeholder="Your Email" required className="bg-background border-input"/>
                     </div>
-                    <Textarea placeholder="Your message..." required rows={5} className="bg-gray-100 border-gray-300 placeholder:text-gray-500" />
-                    <Button type="submit" disabled={isSubmitting} className="w-full sm:w-auto bg-primary text-primary-foreground hover:bg-primary/90">
+                    <Textarea placeholder="Your message..." required rows={5} className="bg-background border-input" />
+                    <Button type="submit" disabled={isSubmitting} className="w-full sm:w-auto">
                         {isSubmitting ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
                         Send Message
                     </Button>
