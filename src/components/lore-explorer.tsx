@@ -135,6 +135,13 @@ export function LoreExplorer({ initialLocations }: { initialLocations: SavedLoca
   return (
     <SidebarProvider>
       <div className="min-h-screen bg-background text-foreground">
+        <header className="p-4 flex items-center justify-between border-b sticky top-0 bg-background/80 backdrop-blur-sm z-10">
+          <div className="flex items-center gap-4">
+            <SidebarTrigger />
+            <h1 className="font-headline text-2xl md:text-3xl font-bold text-primary tracking-tight">Lore Explorer</h1>
+          </div>
+        </header>
+
         <Sidebar>
           <SidebarHeader className="p-4">
             <h2 className="font-headline text-xl font-semibold flex items-center gap-2">
@@ -164,13 +171,6 @@ export function LoreExplorer({ initialLocations }: { initialLocations: SavedLoca
         </Sidebar>
 
         <SidebarInset>
-          <header className="p-4 flex items-center justify-between border-b sticky top-0 bg-background/80 backdrop-blur-sm z-10">
-            <div className="flex items-center gap-4">
-              <SidebarTrigger />
-              <h1 className="font-headline text-2xl md:text-3xl font-bold text-primary tracking-tight">Lore Explorer</h1>
-            </div>
-          </header>
-
           <main className="flex-1 p-4 md:p-8 transition-all duration-300 ease-in-out">
             <div className="max-w-4xl mx-auto grid gap-8">
               <Card className="shadow-lg border-primary/20">
