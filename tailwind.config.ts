@@ -1,3 +1,4 @@
+
 import type {Config} from 'tailwindcss';
 
 export default {
@@ -93,7 +94,13 @@ export default {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
       },
+      boxShadow: {
+        '3d': '0 1px hsl(var(--primary) / 0.5), 0 2px hsl(var(--primary) / 0.4), 0 3px hsl(var(--primary) / 0.3), 0 4px hsl(var(--primary) / 0.2), 0 5px hsl(var(--primary) / 0.1)',
+        '3d-button': '0 2px 4px -2px hsl(var(--primary)), inset 0 -4px 0 hsl(var(--primary) / 0.8)',
+      },
     },
   },
   plugins: [require('tailwindcss-animate'), require('@tailwindcss/typography')],
 } satisfies Config;
+
+    

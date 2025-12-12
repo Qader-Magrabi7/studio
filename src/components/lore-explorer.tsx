@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState, useEffect, useTransition } from 'react';
@@ -182,8 +183,8 @@ export function LoreExplorer({ initialLocations }: { initialLocations: SavedLoca
       <main className="flex-1 p-4 md:p-8">
         <div className="max-w-4xl mx-auto grid gap-8">
           <Card 
-            className="shadow-lg relative overflow-hidden bg-cover bg-center text-white"
-            style={{backgroundImage: "url('https://images.unsplash.com/photo-1541888946425-d81bb19240f5?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')"}}
+            className="shadow-3d relative overflow-hidden bg-cover bg-center text-white"
+            style={{backgroundImage: "url('https://images.unsplash.com/photo-1564053489984-3c7bb6bdc3fa?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')"}}
           >
             <div className="absolute inset-0 bg-black/50" />
             <div className="relative">
@@ -204,11 +205,11 @@ export function LoreExplorer({ initialLocations }: { initialLocations: SavedLoca
                       disabled={isGenerating || isDetecting}
                     />
                   </div>
-                  <Button type="submit" disabled={isGenerating || isDetecting || !locationInput} className="w-full sm:w-auto">
+                  <Button type="submit" disabled={isGenerating || isDetecting || !locationInput} className="w-full sm:w-auto shadow-3d-button">
                     {isGenerating && !isDetecting ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Compass className="mr-2 h-4 w-4" />}
                     Generate Story
                   </Button>
-                  <Button type="button" variant="secondary" onClick={handleDetectLocation} disabled={isGenerating || isDetecting} className="w-full sm:w-auto">
+                  <Button type="button" variant="secondary" onClick={handleDetectLocation} disabled={isGenerating || isDetecting} className="w-full sm:w-auto shadow-3d-button">
                     {isDetecting ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <MapPin className="mr-2 h-4 w-4" />}
                     Detect Location
                   </Button>
@@ -220,14 +221,14 @@ export function LoreExplorer({ initialLocations }: { initialLocations: SavedLoca
           {isGenerating ? (
             <StorySkeleton />
           ) : story ? (
-            <Card className="shadow-lg border-primary/20 animate-in fade-in-50 duration-500">
+            <Card className="shadow-3d border-primary/20 animate-in fade-in-50 duration-500">
               <CardHeader>
                 <div className="flex flex-col sm:flex-row justify-between items-start gap-4">
                   <div>
                     <CardTitle className="font-headline text-3xl">{story.title}</CardTitle>
                     <CardDescription>A story about {currentLocation}</CardDescription>
                   </div>
-                  <Button onClick={handleSaveLocation} disabled={isSaving} className="w-full sm:w-auto shrink-0">
+                  <Button onClick={handleSaveLocation} disabled={isSaving} className="w-full sm:w-auto shrink-0 shadow-3d-button">
                     {isSaving ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Save className="mr-2 h-4 w-4" />}
                     Save Place
                   </Button>
@@ -253,7 +254,7 @@ export function LoreExplorer({ initialLocations }: { initialLocations: SavedLoca
 }
 
 const StorySkeleton = () => (
-  <Card className="shadow-md">
+  <Card className="shadow-3d">
     <CardHeader>
       <Skeleton className="h-8 w-3/4 rounded-md bg-muted-foreground/10" />
       <Skeleton className="h-4 w-1/2 rounded-md bg-muted-foreground/10 mt-2" />
@@ -273,7 +274,7 @@ const WelcomeMessage = () => {
     const image = placeholderData.placeholderImages[0];
 
     return (
-        <Card className="text-center p-8 border-2 border-dashed rounded-lg animate-in fade-in-50 duration-500 shadow-lg border-primary/20">
+        <Card className="text-center p-8 border-2 border-dashed rounded-lg animate-in fade-in-50 duration-500 shadow-3d border-primary/20">
             <Image 
                 src={image.imageUrl}
                 alt={image.description}
@@ -291,7 +292,7 @@ const WelcomeMessage = () => {
 
 const AboutTeamSection = () => (
     <Card 
-        className="shadow-lg relative overflow-hidden bg-cover bg-center text-white"
+        className="shadow-3d relative overflow-hidden bg-cover bg-center text-white"
         style={{backgroundImage: "url('https://images.unsplash.com/photo-1518684079-3c830dcef090?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')"}}
     >
         <div className="absolute inset-0 bg-black/60" />
@@ -353,7 +354,7 @@ const ContactUsSection = () => {
     };
 
     return (
-        <Card className="shadow-lg">
+        <Card className="shadow-3d">
             <CardHeader>
                 <CardTitle className="font-headline text-2xl flex items-center gap-2">
                     <Mail /> Contact Us
@@ -367,7 +368,7 @@ const ContactUsSection = () => {
                         <Input type="email" placeholder="Your Email" required className="bg-background border-input"/>
                     </div>
                     <Textarea placeholder="Your message..." required rows={5} className="bg-background border-input" />
-                    <Button type="submit" disabled={isSubmitting} className="w-full sm:w-auto">
+                    <Button type="submit" disabled={isSubmitting} className="w-full sm:w-auto shadow-3d-button">
                         {isSubmitting ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
                         Send Message
                     </Button>
@@ -376,3 +377,5 @@ const ContactUsSection = () => {
         </Card>
     );
 };
+
+    
