@@ -284,12 +284,12 @@ const WelcomeMessage = () => {
 };
 
 const AboutTeamSection = () => (
-    <Card className="shadow-lg border-primary/20">
+    <Card className="shadow-lg bg-white text-black">
         <CardHeader>
             <CardTitle className="font-headline text-2xl flex items-center gap-2">
                 <Users /> About Our Team
             </CardTitle>
-            <CardDescription>The creators behind Lore Explorer.</CardDescription>
+            <CardDescription className="text-gray-600">The creators behind Lore Explorer.</CardDescription>
         </CardHeader>
         <CardContent className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             <div className="flex flex-col items-center text-center">
@@ -298,7 +298,7 @@ const AboutTeamSection = () => (
                     <AvatarFallback>JD</AvatarFallback>
                 </Avatar>
                 <h3 className="font-semibold">Jane Doe</h3>
-                <p className="text-sm text-muted-foreground">Lead Developer</p>
+                <p className="text-sm text-gray-500">Lead Developer</p>
                 <p className="text-xs mt-2">Architect of the story engine and finder of cosmic tales.</p>
             </div>
             <div className="flex flex-col items-center text-center">
@@ -307,7 +307,7 @@ const AboutTeamSection = () => (
                     <AvatarFallback>JS</AvatarFallback>
                 </Avatar>
                 <h3 className="font-semibold">John Smith</h3>
-                <p className="text-sm text-muted-foreground">UI/UX Designer</p>
+                <p className="text-sm text-gray-500">UI/UX Designer</p>
                 <p className="text-xs mt-2">Designer of stellar interfaces and navigator of user journeys.</p>
             </div>
             <div className="flex flex-col items-center text-center">
@@ -316,7 +316,7 @@ const AboutTeamSection = () => (
                     <AvatarFallback>AI</AvatarFallback>
                 </Avatar>
                 <h3 className="font-semibold">AI Oracle</h3>
-                <p className="text-sm text-muted-foreground">The Storyteller</p>
+                <p className="text-sm text-gray-500">The Storyteller</p>
                 <p className="text-xs mt-2">The AI that weaves the lore of the universe for your exploration.</p>
             </div>
         </CardContent>
@@ -341,21 +341,21 @@ const ContactUsSection = () => {
     };
 
     return (
-        <Card className="shadow-lg border-primary/20">
+        <Card className="shadow-lg bg-white text-black">
             <CardHeader>
                 <CardTitle className="font-headline text-2xl flex items-center gap-2">
                     <Mail /> Contact Us
                 </CardTitle>
-                <CardDescription>Have questions or feedback? Send us a message.</CardDescription>
+                <CardDescription className="text-gray-600">Have questions or feedback? Send us a message.</CardDescription>
             </CardHeader>
             <CardContent>
                 <form onSubmit={handleContactSubmit} className="grid gap-4">
                     <div className="grid sm:grid-cols-2 gap-4">
-                        <Input placeholder="Your Name" required/>
-                        <Input type="email" placeholder="Your Email" required/>
+                        <Input placeholder="Your Name" required className="bg-gray-100 border-gray-300 placeholder:text-gray-500"/>
+                        <Input type="email" placeholder="Your Email" required className="bg-gray-100 border-gray-300 placeholder:text-gray-500"/>
                     </div>
-                    <Textarea placeholder="Your message..." required rows={5} />
-                    <Button type="submit" disabled={isSubmitting} className="w-full sm:w-auto">
+                    <Textarea placeholder="Your message..." required rows={5} className="bg-gray-100 border-gray-300 placeholder:text-gray-500" />
+                    <Button type="submit" disabled={isSubmitting} className="w-full sm:w-auto bg-primary text-primary-foreground hover:bg-primary/90">
                         {isSubmitting ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
                         Send Message
                     </Button>
