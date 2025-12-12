@@ -1,7 +1,7 @@
 
 "use client";
 
-import { useState, useEffect, useTransition } from 'react';
+import { useState, useEffect, useTransition, useRef } from 'react';
 import Image from 'next/image';
 import {
   Dialog,
@@ -10,12 +10,18 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuTrigger,
+  } from "@/components/ui/dropdown-menu"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Skeleton } from '@/components/ui/skeleton';
-import { Compass, BookOpen, Save, MapPin, Search, Loader2, Users, Mail } from 'lucide-react';
+import { Compass, BookOpen, Save, MapPin, Search, Loader2, Users, Mail, Menu, Car } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
 import { generateStoryAction, saveLocationAction } from '@/app/actions';
 import type { SavedLocation, Story } from '@/lib/types';
@@ -53,6 +59,14 @@ export function LoreExplorer({ initialLocations }: { initialLocations: SavedLoca
   const [isDetecting, setIsDetecting] = useState(false);
   const { toast } = useToast();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  
+  const aboutTeamRef = useRef<HTMLDivElement>(null);
+  const contactUsRef = useRef<HTMLDivElement>(null);
+  const nearbyRidesRef = useRef<HTMLDivElement>(null);
+
+  const scrollTo = (ref: React.RefObject<HTMLDivElement>) => {
+    ref.current?.scrollIntoView({ behavior: 'smooth' });
+  };
 
 
   useEffect(() => {
@@ -159,7 +173,21 @@ export function LoreExplorer({ initialLocations }: { initialLocations: SavedLoca
   return (
     <div className="min-h-screen bg-background text-foreground">
       <header className="p-4 flex items-center justify-between border-b sticky top-0 bg-background/80 backdrop-blur-sm z-10">
-        <div className="w-1/4"></div>
+        <div className="w-1/4">
+            <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                    <Button variant="outline" size="icon" className="h-8 w-8">
+                        <Menu className="h-4 w-4" />
+                        <span className="sr-only">Open Menu</span>
+                    </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent>
+                    <DropdownMenuItem onClick={() => scrollTo(aboutTeamRef)}>About Our Team</DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => scrollTo(contactUsRef)}>Contact Us</DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => scrollTo(nearbyRidesRef)}>Nearby Rides</DropdownMenuItem>
+                </DropdownMenuContent>
+            </DropdownMenu>
+        </div>
         <div className="w-1/2 flex justify-center items-center gap-4">
             <EarthDoodle />
             <h1 className="font-headline text-2xl md:text-3xl font-bold text-primary tracking-tight whitespace-nowrap">Lore Explorer</h1>
@@ -205,7 +233,7 @@ export function LoreExplorer({ initialLocations }: { initialLocations: SavedLoca
       <main className="flex-1 p-4 md:p-8">
         <div className="max-w-4xl mx-auto grid gap-8">
           <Card 
-            className="shadow-3d relative overflow-hidden bg-cover bg-center text-white"
+            className="shadow-3d relative overflow-hidden bg-cover bg-center text-white border-primary/20"
             style={{backgroundImage: "url('https://images.unsplash.com/photo-1564053489984-3c7bb6bdc3fa?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')"}}
           >
             <div className="absolute inset-0 bg-black/50" />
@@ -267,8 +295,9 @@ export function LoreExplorer({ initialLocations }: { initialLocations: SavedLoca
           ) : (
             <WelcomeMessage />
           )}
-          <AboutTeamSection />
-          <ContactUsSection />
+          <div ref={aboutTeamRef}><AboutTeamSection /></div>
+          <div ref={nearbyRidesRef}><NearbyRidesSection /></div>
+          <div ref={contactUsRef}><ContactUsSection /></div>
         </div>
       </main>
     </div>
@@ -276,7 +305,7 @@ export function LoreExplorer({ initialLocations }: { initialLocations: SavedLoca
 }
 
 const StorySkeleton = () => (
-  <Card className="shadow-3d">
+  <Card className="shadow-3d border-primary/20">
     <CardHeader>
       <Skeleton className="h-8 w-3/4 rounded-md bg-muted-foreground/10" />
       <Skeleton className="h-4 w-1/2 rounded-md bg-muted-foreground/10 mt-2" />
@@ -298,7 +327,7 @@ const WelcomeMessage = () => {
     return (
         <Card className="text-center p-8 border-2 border-dashed rounded-lg animate-in fade-in-50 duration-500 shadow-3d border-primary/20">
             <Image 
-                src={image.imageUrl}
+                src={"https://images.unsplash.com/photo-1506443432602-ac2fcd6f54e0?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"}
                 alt={image.description}
                 width={1200}
                 height={400}
@@ -314,7 +343,7 @@ const WelcomeMessage = () => {
 
 const AboutTeamSection = () => (
     <Card 
-        className="shadow-3d relative overflow-hidden bg-cover bg-center text-white"
+        className="shadow-3d relative overflow-hidden bg-cover bg-center text-white border-primary/20"
         style={{backgroundImage: "url('https://images.unsplash.com/photo-1518684079-3c830dcef090?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')"}}
     >
         <div className="absolute inset-0 bg-black/60" />
@@ -325,7 +354,7 @@ const AboutTeamSection = () => (
                 </CardTitle>
                 <CardDescription className="text-gray-300">The creators behind Lore Explorer.</CardDescription>
             </CardHeader>
-            <CardContent className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <CardContent className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 <div className="flex flex-col items-center text-center">
                     <Avatar className="w-24 h-24 mb-4 border-2 border-primary">
                         <AvatarImage src="https://i.pravatar.cc/150?u=a042581f4e29026704d" alt="Team member 1"/>
@@ -353,10 +382,46 @@ const AboutTeamSection = () => (
                     <p className="text-sm text-gray-300">The Storyteller</p>
                     <p className="text-xs mt-2 text-gray-400">The AI that weaves the lore of the universe for your exploration.</p>
                 </div>
+                <div className="flex flex-col items-center text-center">
+                    <Avatar className="w-24 h-24 mb-4 border-2 border-primary">
+                        <AvatarImage src="https://i.pravatar.cc/150?u=a042581f4e29026704a" alt="Team member 4" />
+                        <AvatarFallback>CE</AvatarFallback>
+                    </Avatar>
+                    <h3 className="font-semibold">Cosmo Engineer</h3>
+                    <p className="text-sm text-gray-300">Galaxy Cartographer</p>
+                    <p className="text-xs mt-2 text-gray-400">Plots the courses for our story-seeking expeditions across the digital cosmos.</p>
+                </div>
             </CardContent>
         </div>
     </Card>
 );
+
+const NearbyRidesSection = () => {
+    const { toast } = useToast();
+
+    const handleFindRides = () => {
+        toast({
+            title: "Feature Coming Soon!",
+            description: "The ability to find nearby rides is still under development.",
+        });
+    };
+    return (
+        <Card className="shadow-3d border-primary/20">
+            <CardHeader>
+                <CardTitle className="font-headline text-2xl flex items-center gap-2">
+                    <Car /> Nearby Rides
+                </CardTitle>
+                <CardDescription>Need a lift to your next adventure? Find rides here.</CardDescription>
+            </CardHeader>
+            <CardContent className='text-center'>
+                 <p className="text-muted-foreground mb-4">This feature is not yet available. Check back soon!</p>
+                 <Button onClick={handleFindRides} className="shadow-3d-button">
+                    Find Rides
+                </Button>
+            </CardContent>
+        </Card>
+    );
+};
 
 const ContactUsSection = () => {
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -376,7 +441,7 @@ const ContactUsSection = () => {
     };
 
     return (
-        <Card className="shadow-3d">
+        <Card className="shadow-3d border-primary/20">
             <CardHeader>
                 <CardTitle className="font-headline text-2xl flex items-center gap-2">
                     <Mail /> Contact Us
@@ -399,5 +464,3 @@ const ContactUsSection = () => {
         </Card>
     );
 };
-
-    
