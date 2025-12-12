@@ -181,34 +181,40 @@ export function LoreExplorer({ initialLocations }: { initialLocations: SavedLoca
 
       <main className="flex-1 p-4 md:p-8">
         <div className="max-w-4xl mx-auto grid gap-8">
-          <Card className="shadow-lg border-primary/20">
-            <CardHeader>
-              <CardTitle className="font-headline text-2xl">Discover a New Story</CardTitle>
-              <CardDescription>Enter a location or use your current one to generate a unique story.</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <form onSubmit={handleFormSubmit} className="flex flex-col sm:flex-row gap-2">
-                <div className="relative flex-grow">
-                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
-                  <Input
-                    type="text"
-                    placeholder="e.g., Eiffel Tower, Paris"
-                    className="pl-10 text-base"
-                    value={locationInput}
-                    onChange={(e) => setLocationInput(e.target.value)}
-                    disabled={isGenerating || isDetecting}
-                  />
-                </div>
-                <Button type="submit" disabled={isGenerating || isDetecting || !locationInput} className="w-full sm:w-auto">
-                  {isGenerating && !isDetecting ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Compass className="mr-2 h-4 w-4" />}
-                  Generate Story
-                </Button>
-                <Button type="button" variant="outline" onClick={handleDetectLocation} disabled={isGenerating || isDetecting} className="w-full sm:w-auto">
-                  {isDetecting ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <MapPin className="mr-2 h-4 w-4" />}
-                  Detect Location
-                </Button>
-              </form>
-            </CardContent>
+          <Card 
+            className="shadow-lg relative overflow-hidden bg-cover bg-center text-white"
+            style={{backgroundImage: "url('https://images.unsplash.com/photo-1541888946425-d81bb19240f5?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')"}}
+          >
+            <div className="absolute inset-0 bg-black/50" />
+            <div className="relative">
+              <CardHeader>
+                <CardTitle className="font-headline text-2xl">Discover a New Story</CardTitle>
+                <CardDescription className="text-gray-300">Enter a location or use your current one to generate a unique story.</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <form onSubmit={handleFormSubmit} className="flex flex-col sm:flex-row gap-2">
+                  <div className="relative flex-grow">
+                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-300" />
+                    <Input
+                      type="text"
+                      placeholder="e.g., Eiffel Tower, Paris"
+                      className="pl-10 text-base bg-white/10 text-white placeholder:text-gray-300 border-white/20 focus:ring-primary"
+                      value={locationInput}
+                      onChange={(e) => setLocationInput(e.target.value)}
+                      disabled={isGenerating || isDetecting}
+                    />
+                  </div>
+                  <Button type="submit" disabled={isGenerating || isDetecting || !locationInput} className="w-full sm:w-auto">
+                    {isGenerating && !isDetecting ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Compass className="mr-2 h-4 w-4" />}
+                    Generate Story
+                  </Button>
+                  <Button type="button" variant="secondary" onClick={handleDetectLocation} disabled={isGenerating || isDetecting} className="w-full sm:w-auto">
+                    {isDetecting ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <MapPin className="mr-2 h-4 w-4" />}
+                    Detect Location
+                  </Button>
+                </form>
+              </CardContent>
+            </div>
           </Card>
 
           {isGenerating ? (
