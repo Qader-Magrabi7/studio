@@ -3,16 +3,12 @@
 import { useState, useEffect, useTransition } from 'react';
 import Image from 'next/image';
 import {
-  SidebarProvider,
-  Sidebar,
-  SidebarHeader,
-  SidebarContent,
-  SidebarInset,
-  SidebarTrigger,
-  SidebarMenu,
-  SidebarMenuItem,
-  SidebarMenuButton,
-} from '@/components/ui/sidebar';
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from '@/components/ui/sheet';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -33,6 +29,8 @@ export function LoreExplorer({ initialLocations }: { initialLocations: SavedLoca
   const [isSaving, startSaving] = useTransition();
   const [isDetecting, setIsDetecting] = useState(false);
   const { toast } = useToast();
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
 
   useEffect(() => {
     setSavedLocations(initialLocations);
@@ -47,6 +45,8 @@ export function LoreExplorer({ initialLocations }: { initialLocations: SavedLoca
       });
       return;
     }
+    
+    setIsSidebarOpen(false);
 
     startGenerating(async () => {
       setStory(null);
@@ -133,108 +133,109 @@ export function LoreExplorer({ initialLocations }: { initialLocations: SavedLoca
   };
 
   return (
-    <SidebarProvider>
-      <div className="min-h-screen bg-background text-foreground">
-        <header className="p-4 flex items-center justify-between border-b sticky top-0 bg-background/80 backdrop-blur-sm z-10">
-          <div className="flex items-center gap-4">
-            <SidebarTrigger />
-            <h1 className="font-headline text-2xl md:text-3xl font-bold text-primary tracking-tight">Lore Explorer</h1>
-          </div>
-        </header>
-
-        <Sidebar>
-          <SidebarHeader className="p-4">
-            <h2 className="font-headline text-xl font-semibold flex items-center gap-2">
-              <BookOpen className="text-primary"/>
-              Saved Locations
-            </h2>
-          </SidebarHeader>
-          <SidebarContent>
-            <ScrollArea className="h-full">
-              <SidebarMenu>
-                {savedLocations.length > 0 ? (
-                  savedLocations.map((loc) => (
-                    <SidebarMenuItem key={loc.id}>
-                      <SidebarMenuButton onClick={() => handleGenerateStory(loc.name)} isActive={currentLocation === loc.name} tooltip={loc.name}>
-                        <span>{loc.name}</span>
-                      </SidebarMenuButton>
-                    </SidebarMenuItem>
-                  ))
-                ) : (
-                  <div className="p-4 text-sm text-muted-foreground text-center">
-                    No saved locations yet. Explore and save some stories!
-                  </div>
-                )}
-              </SidebarMenu>
-            </ScrollArea>
-          </SidebarContent>
-        </Sidebar>
-
-        <SidebarInset>
-          <main className="flex-1 p-4 md:p-8 transition-all duration-300 ease-in-out">
-            <div className="max-w-4xl mx-auto grid gap-8">
-              <Card className="shadow-lg border-primary/20">
-                <CardHeader>
-                  <CardTitle className="font-headline text-2xl">Discover a New Story</CardTitle>
-                  <CardDescription>Enter a location or use your current one to generate a unique story.</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <form onSubmit={handleFormSubmit} className="flex flex-col sm:flex-row gap-2">
-                    <div className="relative flex-grow">
-                      <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
-                      <Input
-                        type="text"
-                        placeholder="e.g., Eiffel Tower, Paris"
-                        className="pl-10 text-base"
-                        value={locationInput}
-                        onChange={(e) => setLocationInput(e.target.value)}
-                        disabled={isGenerating || isDetecting}
-                      />
-                    </div>
-                    <Button type="submit" disabled={isGenerating || isDetecting || !locationInput} className="w-full sm:w-auto">
-                      {isGenerating && !isDetecting ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Compass className="mr-2 h-4 w-4" />}
-                      Generate Story
+    <div className="min-h-screen bg-background text-foreground">
+      <header className="p-4 flex items-center justify-between border-b sticky top-0 bg-background/80 backdrop-blur-sm z-10">
+        <div className="flex items-center gap-4">
+            <Sheet open={isSidebarOpen} onOpenChange={setIsSidebarOpen}>
+                <SheetTrigger asChild>
+                    <Button variant="outline" size="icon" className="h-8 w-8">
+                        <BookOpen className="h-4 w-4" />
+                        <span className="sr-only">Open Saved Locations</span>
                     </Button>
-                    <Button type="button" variant="outline" onClick={handleDetectLocation} disabled={isGenerating || isDetecting} className="w-full sm:w-auto">
-                      {isDetecting ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <MapPin className="mr-2 h-4 w-4" />}
-                      Detect Location
-                    </Button>
-                  </form>
-                </CardContent>
-              </Card>
-
-              {isGenerating ? (
-                <StorySkeleton />
-              ) : story ? (
-                <Card className="shadow-lg border-primary/20 animate-in fade-in-50 duration-500">
-                  <CardHeader>
-                    <div className="flex flex-col sm:flex-row justify-between items-start gap-4">
-                      <div>
-                        <CardTitle className="font-headline text-3xl">{story.title}</CardTitle>
-                        <CardDescription>A story about {currentLocation}</CardDescription>
-                      </div>
-                      <Button onClick={handleSaveLocation} disabled={isSaving} className="w-full sm:w-auto shrink-0">
-                        {isSaving ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Save className="mr-2 h-4 w-4" />}
-                        Save Place
-                      </Button>
-                    </div>
-                  </CardHeader>
-                  <CardContent>
-                    <ScrollArea className="h-[40vh] md:h-[50vh] pr-4">
-                      <article className="prose dark:prose-invert max-w-none text-foreground/90 leading-loose font-body whitespace-pre-wrap">
-                        {story.story}
-                      </article>
+                </SheetTrigger>
+                <SheetContent>
+                    <SheetHeader>
+                        <SheetTitle className="font-headline text-xl font-semibold flex items-center gap-2">
+                        <BookOpen className="text-primary"/>
+                        Saved Locations
+                        </SheetTitle>
+                    </SheetHeader>
+                    <ScrollArea className="h-[calc(100%-4rem)] mt-4">
+                        {savedLocations.length > 0 ? (
+                        savedLocations.map((loc) => (
+                            <Button
+                                key={loc.id}
+                                variant={currentLocation === loc.name ? "secondary" : "ghost"}
+                                className="w-full justify-start truncate"
+                                onClick={() => handleGenerateStory(loc.name)}
+                            >
+                                {loc.name}
+                            </Button>
+                        ))
+                        ) : (
+                        <div className="p-4 text-sm text-muted-foreground text-center">
+                            No saved locations yet. Explore and save some stories!
+                        </div>
+                        )}
                     </ScrollArea>
-                  </CardContent>
-                </Card>
-              ) : (
-                <WelcomeMessage />
-              )}
-            </div>
-          </main>
-        </SidebarInset>
-      </div>
-    </SidebarProvider>
+                </SheetContent>
+            </Sheet>
+            <h1 className="font-headline text-2xl md:text-3xl font-bold text-primary tracking-tight">Lore Explorer</h1>
+        </div>
+      </header>
+
+      <main className="flex-1 p-4 md:p-8">
+        <div className="max-w-4xl mx-auto grid gap-8">
+          <Card className="shadow-lg border-primary/20">
+            <CardHeader>
+              <CardTitle className="font-headline text-2xl">Discover a New Story</CardTitle>
+              <CardDescription>Enter a location or use your current one to generate a unique story.</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <form onSubmit={handleFormSubmit} className="flex flex-col sm:flex-row gap-2">
+                <div className="relative flex-grow">
+                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+                  <Input
+                    type="text"
+                    placeholder="e.g., Eiffel Tower, Paris"
+                    className="pl-10 text-base"
+                    value={locationInput}
+                    onChange={(e) => setLocationInput(e.target.value)}
+                    disabled={isGenerating || isDetecting}
+                  />
+                </div>
+                <Button type="submit" disabled={isGenerating || isDetecting || !locationInput} className="w-full sm:w-auto">
+                  {isGenerating && !isDetecting ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Compass className="mr-2 h-4 w-4" />}
+                  Generate Story
+                </Button>
+                <Button type="button" variant="outline" onClick={handleDetectLocation} disabled={isGenerating || isDetecting} className="w-full sm:w-auto">
+                  {isDetecting ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <MapPin className="mr-2 h-4 w-4" />}
+                  Detect Location
+                </Button>
+              </form>
+            </CardContent>
+          </Card>
+
+          {isGenerating ? (
+            <StorySkeleton />
+          ) : story ? (
+            <Card className="shadow-lg border-primary/20 animate-in fade-in-50 duration-500">
+              <CardHeader>
+                <div className="flex flex-col sm:flex-row justify-between items-start gap-4">
+                  <div>
+                    <CardTitle className="font-headline text-3xl">{story.title}</CardTitle>
+                    <CardDescription>A story about {currentLocation}</CardDescription>
+                  </div>
+                  <Button onClick={handleSaveLocation} disabled={isSaving} className="w-full sm:w-auto shrink-0">
+                    {isSaving ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Save className="mr-2 h-4 w-4" />}
+                    Save Place
+                  </Button>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <ScrollArea className="h-[40vh] md:h-[50vh] pr-4">
+                  <article className="prose dark:prose-invert max-w-none text-foreground/90 leading-loose font-body whitespace-pre-wrap">
+                    {story.story}
+                  </article>
+                </ScrollArea>
+              </CardContent>
+            </Card>
+          ) : (
+            <WelcomeMessage />
+          )}
+        </div>
+      </main>
+    </div>
   );
 }
 
