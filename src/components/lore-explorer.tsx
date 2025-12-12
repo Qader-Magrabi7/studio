@@ -86,12 +86,12 @@ export function LoreExplorer({ initialLocations }: { initialLocations: SavedLoca
       (position) => {
         const { latitude, longitude } = position.coords;
         const locationString = `${latitude.toFixed(4)}, ${longitude.toFixed(4)}`;
+        setLocationInput(locationString);
         setIsDetecting(false);
         toast({
           title: "Location Detected",
           description: "Click 'Generate Story' to uncover tales from your current location.",
         });
-        handleGenerateStory(locationString);
       },
       (error) => {
         toast({
