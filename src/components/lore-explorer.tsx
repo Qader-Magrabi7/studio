@@ -14,7 +14,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Skeleton } from '@/components/ui/skeleton';
-import { Compass, BookOpen, Save, MapPin, Search, Loader2 } from 'lucide-react';
+import { Compass, BookOpen, Save, MapPin, Search, Loader2, Globe } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
 import { generateStoryAction, saveLocationAction } from '@/app/actions';
 import type { SavedLocation, Story } from '@/lib/types';
@@ -87,10 +87,11 @@ export function LoreExplorer({ initialLocations }: { initialLocations: SavedLoca
         const { latitude, longitude } = position.coords;
         const locationString = `${latitude.toFixed(4)}, ${longitude.toFixed(4)}`;
         setLocationInput(locationString);
+        handleGenerateStory(locationString);
         setIsDetecting(false);
         toast({
           title: "Location Detected",
-          description: "Click 'Generate Story' to uncover tales from your current location.",
+          description: "Generating a story for your current location.",
         });
       },
       (error) => {
@@ -136,42 +137,43 @@ export function LoreExplorer({ initialLocations }: { initialLocations: SavedLoca
     <div className="min-h-screen bg-background text-foreground">
       <header className="p-4 flex items-center justify-between border-b sticky top-0 bg-background/80 backdrop-blur-sm z-10">
         <div className="flex items-center gap-4">
-            <Dialog open={isSidebarOpen} onOpenChange={setIsSidebarOpen}>
-                <DialogTrigger asChild>
-                    <Button variant="outline" size="icon" className="h-8 w-8">
-                        <BookOpen className="h-4 w-4" />
-                        <span className="sr-only">Open Saved Locations</span>
-                    </Button>
-                </DialogTrigger>
-                <DialogContent className="sm:max-w-[425px]">
-                    <DialogHeader>
-                        <DialogTitle className="font-headline text-xl font-semibold flex items-center gap-2">
-                        <BookOpen className="text-primary"/>
-                        Saved Locations
-                        </DialogTitle>
-                    </DialogHeader>
-                    <ScrollArea className="h-[60vh] mt-4">
-                        {savedLocations.length > 0 ? (
-                        savedLocations.map((loc) => (
-                            <Button
-                                key={loc.id}
-                                variant={currentLocation === loc.name ? "secondary" : "ghost"}
-                                className="w-full justify-start truncate"
-                                onClick={() => handleGenerateStory(loc.name)}
-                            >
-                                {loc.name}
-                            </Button>
-                        ))
-                        ) : (
-                        <div className="p-4 text-sm text-muted-foreground text-center">
-                            No saved locations yet. Explore and save some stories!
-                        </div>
-                        )}
-                    </ScrollArea>
-                </DialogContent>
-            </Dialog>
+            <Globe className="h-8 w-8 text-primary" />
             <h1 className="font-headline text-2xl md:text-3xl font-bold text-primary tracking-tight">Lore Explorer</h1>
         </div>
+        <Dialog open={isSidebarOpen} onOpenChange={setIsSidebarOpen}>
+            <DialogTrigger asChild>
+                <Button variant="outline" size="icon" className="h-8 w-8">
+                    <BookOpen className="h-4 w-4" />
+                    <span className="sr-only">Open Saved Locations</span>
+                </Button>
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-[425px]">
+                <DialogHeader>
+                    <DialogTitle className="font-headline text-xl font-semibold flex items-center gap-2">
+                    <BookOpen className="text-primary"/>
+                    Saved Locations
+                    </DialogTitle>
+                </DialogHeader>
+                <ScrollArea className="h-[60vh] mt-4">
+                    {savedLocations.length > 0 ? (
+                    savedLocations.map((loc) => (
+                        <Button
+                            key={loc.id}
+                            variant={currentLocation === loc.name ? "secondary" : "ghost"}
+                            className="w-full justify-start truncate"
+                            onClick={() => handleGenerateStory(loc.name)}
+                        >
+                            {loc.name}
+                        </Button>
+                    ))
+                    ) : (
+                    <div className="p-4 text-sm text-muted-foreground text-center">
+                        No saved locations yet. Explore and save some stories!
+                    </div>
+                    )}
+                </ScrollArea>
+            </DialogContent>
+        </Dialog>
       </header>
 
       <main className="flex-1 p-4 md:p-8">
