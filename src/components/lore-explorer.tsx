@@ -325,7 +325,7 @@ const AboutTeamSection = () => (
                 </CardTitle>
                 <CardDescription className="text-gray-300">The creators behind Lore Explorer.</CardDescription>
             </CardHeader>
-            <CardContent className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <CardContent className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 <div className="flex flex-col items-center text-center">
                     <Avatar className="w-24 h-24 mb-4 border-2 border-primary">
                         <AvatarImage src="https://i.pravatar.cc/150?u=a042581f4e29026704d" alt="Team member 1"/>
@@ -343,15 +343,6 @@ const AboutTeamSection = () => (
                     <h3 className="font-semibold">John Smith</h3>
                     <p className="text-sm text-gray-300">UI/UX Designer</p>
                     <p className="text-xs mt-2 text-gray-400">Designer of stellar interfaces and navigator of user journeys.</p>
-                </div>
-                <div className="flex flex-col items-center text-center">
-                    <Avatar className="w-24 h-24 mb-4 border-2 border-primary">
-                        <AvatarImage src="https://i.pravatar.cc/150?u=a042581f4e29026704a" alt="Team member 4" />
-                        <AvatarFallback>AM</AvatarFallback>
-                    </Avatar>
-                    <h3 className="font-semibold">Alex Miller</h3>
-                    <p className="text-sm text-gray-300">Marketing Lead</p>
-                    <p className="text-xs mt-2 text-gray-400">Spreading the word about the world's hidden stories.</p>
                 </div>
                 <div className="flex flex-col items-center text-center">
                     <Avatar className="w-24 h-24 mb-4 border-2 border-primary">
@@ -408,3 +399,5 @@ const ContactUsSection = () => {
         </Card>
     );
 };
+
+    

@@ -1,10 +1,10 @@
 {
   "placeholderImages": [
     {
-      "id": "welcome-world-map",
-      "description": "A vintage world map, representing global exploration and stories.",
-      "imageUrl": "https://images.unsplash.com/photo-1563453392212-9a3c9b097819?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-      "imageHint": "world map"
+      "id": "welcome-galaxy",
+      "description": "A swirling galaxy, representing the vastness of stories in the universe.",
+      "imageUrl": "https://images.unsplash.com/photo-1506443432602-ac2fcd6f54e0?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "imageHint": "galaxy stars"
     }
   ]
 }
