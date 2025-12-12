@@ -290,42 +290,48 @@ const WelcomeMessage = () => {
 };
 
 const AboutTeamSection = () => (
-    <Card className="shadow-lg bg-white text-black">
-        <CardHeader>
-            <CardTitle className="font-headline text-2xl flex items-center gap-2">
-                <Users /> About Our Team
-            </CardTitle>
-            <CardDescription className="text-gray-600">The creators behind Lore Explorer.</CardDescription>
-        </CardHeader>
-        <CardContent className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div className="flex flex-col items-center text-center">
-                <Avatar className="w-24 h-24 mb-4">
-                    <AvatarImage src="https://i.pravatar.cc/150?u=a042581f4e29026704d" alt="Team member 1"/>
-                    <AvatarFallback>JD</AvatarFallback>
-                </Avatar>
-                <h3 className="font-semibold">Jane Doe</h3>
-                <p className="text-sm text-gray-500">Lead Developer</p>
-                <p className="text-xs mt-2">Architect of the story engine and finder of cosmic tales.</p>
-            </div>
-            <div className="flex flex-col items-center text-center">
-                <Avatar className="w-24 h-24 mb-4">
-                    <AvatarImage src="https://i.pravatar.cc/150?u=a042581f4e29026704e" alt="Team member 2" />
-                    <AvatarFallback>JS</AvatarFallback>
-                </Avatar>
-                <h3 className="font-semibold">John Smith</h3>
-                <p className="text-sm text-gray-500">UI/UX Designer</p>
-                <p className="text-xs mt-2">Designer of stellar interfaces and navigator of user journeys.</p>
-            </div>
-            <div className="flex flex-col items-center text-center">
-                <Avatar className="w-24 h-24 mb-4">
-                    <AvatarImage src="https://i.pravatar.cc/150?u=a042581f4e29026704f" alt="Team member 3" />
-                    <AvatarFallback>AI</AvatarFallback>
-                </Avatar>
-                <h3 className="font-semibold">AI Oracle</h3>
-                <p className="text-sm text-gray-500">The Storyteller</p>
-                <p className="text-xs mt-2">The AI that weaves the lore of the universe for your exploration.</p>
-            </div>
-        </CardContent>
+    <Card 
+        className="shadow-lg relative overflow-hidden bg-cover bg-center text-white"
+        style={{backgroundImage: "url('https://images.unsplash.com/photo-1518684079-3c830dcef090?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')"}}
+    >
+        <div className="absolute inset-0 bg-black/60" />
+        <div className="relative">
+            <CardHeader>
+                <CardTitle className="font-headline text-2xl flex items-center gap-2">
+                    <Users /> About Our Team
+                </CardTitle>
+                <CardDescription className="text-gray-300">The creators behind Lore Explorer.</CardDescription>
+            </CardHeader>
+            <CardContent className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div className="flex flex-col items-center text-center">
+                    <Avatar className="w-24 h-24 mb-4 border-2 border-primary">
+                        <AvatarImage src="https://i.pravatar.cc/150?u=a042581f4e29026704d" alt="Team member 1"/>
+                        <AvatarFallback>JD</AvatarFallback>
+                    </Avatar>
+                    <h3 className="font-semibold">Jane Doe</h3>
+                    <p className="text-sm text-gray-300">Lead Developer</p>
+                    <p className="text-xs mt-2 text-gray-400">Architect of the story engine and finder of cosmic tales.</p>
+                </div>
+                <div className="flex flex-col items-center text-center">
+                    <Avatar className="w-24 h-24 mb-4 border-2 border-primary">
+                        <AvatarImage src="https://i.pravatar.cc/150?u=a042581f4e29026704e" alt="Team member 2" />
+                        <AvatarFallback>JS</AvatarFallback>
+                    </Avatar>
+                    <h3 className="font-semibold">John Smith</h3>
+                    <p className="text-sm text-gray-300">UI/UX Designer</p>
+                    <p className="text-xs mt-2 text-gray-400">Designer of stellar interfaces and navigator of user journeys.</p>
+                </div>
+                <div className="flex flex-col items-center text-center">
+                    <Avatar className="w-24 h-24 mb-4 border-2 border-primary">
+                        <AvatarImage src="https://i.pravatar.cc/150?u=a042581f4e29026704f" alt="Team member 3" />
+                        <AvatarFallback>AI</AvatarFallback>
+                    </Avatar>
+                    <h3 className="font-semibold">AI Oracle</h3>
+                    <p className="text-sm text-gray-300">The Storyteller</p>
+                    <p className="text-xs mt-2 text-gray-400">The AI that weaves the lore of the universe for your exploration.</p>
+                </div>
+            </CardContent>
+        </div>
     </Card>
 );
 
