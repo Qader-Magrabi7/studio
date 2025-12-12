@@ -15,7 +15,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Skeleton } from '@/components/ui/skeleton';
-import { Compass, BookOpen, Save, MapPin, Search, Loader2, Globe, Users, Mail } from 'lucide-react';
+import { Compass, BookOpen, Save, MapPin, Search, Loader2, Users, Mail } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
 import { generateStoryAction, saveLocationAction } from '@/app/actions';
 import type { SavedLocation, Story } from '@/lib/types';
@@ -23,6 +23,25 @@ import placeholderData from '@/lib/placeholder-images.json';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Textarea } from '@/components/ui/textarea';
 
+const EarthDoodle = () => (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="32"
+      height="32"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className="h-8 w-8 text-primary"
+    >
+      <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z" />
+      <path d="M8 2.5c0 6 4 11 4 11s4-5 4-11" />
+      <path d="M3 10h18" />
+      <path d="M3 14h18" />
+    </svg>
+  );
 
 export function LoreExplorer({ initialLocations }: { initialLocations: SavedLocation[] }) {
   const [locationInput, setLocationInput] = useState('');
@@ -140,12 +159,12 @@ export function LoreExplorer({ initialLocations }: { initialLocations: SavedLoca
   return (
     <div className="min-h-screen bg-background text-foreground">
       <header className="p-4 flex items-center justify-between border-b sticky top-0 bg-background/80 backdrop-blur-sm z-10">
-        <div className="flex-1"></div>
-        <div className="flex flex-1 justify-center items-center gap-4">
-            <Globe className="h-8 w-8 text-primary" />
-            <h1 className="font-headline text-2xl md:text-3xl font-bold text-primary tracking-tight">Lore Explorer</h1>
+        <div className="w-1/4"></div>
+        <div className="w-1/2 flex justify-center items-center gap-4">
+            <EarthDoodle />
+            <h1 className="font-headline text-2xl md:text-3xl font-bold text-primary tracking-tight whitespace-nowrap">Lore Explorer</h1>
         </div>
-        <div className="flex-1 flex justify-end">
+        <div className="w-1/4 flex justify-end">
             <Dialog open={isSidebarOpen} onOpenChange={setIsSidebarOpen}>
                 <DialogTrigger asChild>
                     <Button variant="outline" size="icon" className="h-8 w-8">
@@ -380,7 +399,3 @@ const ContactUsSection = () => {
         </Card>
     );
 };
-
-    
-
-    
