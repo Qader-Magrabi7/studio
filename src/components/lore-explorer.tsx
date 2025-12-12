@@ -3,12 +3,12 @@
 import { useState, useEffect, useTransition } from 'react';
 import Image from 'next/image';
 import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from '@/components/ui/sheet';
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -136,21 +136,21 @@ export function LoreExplorer({ initialLocations }: { initialLocations: SavedLoca
     <div className="min-h-screen bg-background text-foreground">
       <header className="p-4 flex items-center justify-between border-b sticky top-0 bg-background/80 backdrop-blur-sm z-10">
         <div className="flex items-center gap-4">
-            <Sheet open={isSidebarOpen} onOpenChange={setIsSidebarOpen}>
-                <SheetTrigger asChild>
+            <Dialog open={isSidebarOpen} onOpenChange={setIsSidebarOpen}>
+                <DialogTrigger asChild>
                     <Button variant="outline" size="icon" className="h-8 w-8">
                         <BookOpen className="h-4 w-4" />
                         <span className="sr-only">Open Saved Locations</span>
                     </Button>
-                </SheetTrigger>
-                <SheetContent>
-                    <SheetHeader>
-                        <SheetTitle className="font-headline text-xl font-semibold flex items-center gap-2">
+                </DialogTrigger>
+                <DialogContent className="sm:max-w-[425px]">
+                    <DialogHeader>
+                        <DialogTitle className="font-headline text-xl font-semibold flex items-center gap-2">
                         <BookOpen className="text-primary"/>
                         Saved Locations
-                        </SheetTitle>
-                    </SheetHeader>
-                    <ScrollArea className="h-[calc(100%-4rem)] mt-4">
+                        </DialogTitle>
+                    </DialogHeader>
+                    <ScrollArea className="h-[60vh] mt-4">
                         {savedLocations.length > 0 ? (
                         savedLocations.map((loc) => (
                             <Button
@@ -168,8 +168,8 @@ export function LoreExplorer({ initialLocations }: { initialLocations: SavedLoca
                         </div>
                         )}
                     </ScrollArea>
-                </SheetContent>
-            </Sheet>
+                </DialogContent>
+            </Dialog>
             <h1 className="font-headline text-2xl md:text-3xl font-bold text-primary tracking-tight">Lore Explorer</h1>
         </div>
       </header>
