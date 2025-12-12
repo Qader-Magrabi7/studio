@@ -14,11 +14,14 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Skeleton } from '@/components/ui/skeleton';
-import { Compass, BookOpen, Save, MapPin, Search, Loader2, Globe } from 'lucide-react';
+import { Compass, BookOpen, Save, MapPin, Search, Loader2, Globe, Users, Mail } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
 import { generateStoryAction, saveLocationAction } from '@/app/actions';
 import type { SavedLocation, Story } from '@/lib/types';
 import placeholderData from '@/lib/placeholder-images.json';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Textarea } from '@/components/ui/textarea';
+
 
 export function LoreExplorer({ initialLocations }: { initialLocations: SavedLocation[] }) {
   const [locationInput, setLocationInput] = useState('');
@@ -235,6 +238,8 @@ export function LoreExplorer({ initialLocations }: { initialLocations: SavedLoca
           ) : (
             <WelcomeMessage />
           )}
+          <AboutTeamSection />
+          <ContactUsSection />
         </div>
       </main>
     </div>
@@ -274,6 +279,88 @@ const WelcomeMessage = () => {
             />
             <h2 className="font-headline text-2xl font-semibold mb-2">Your Journey Begins</h2>
             <p className="text-muted-foreground max-w-md mx-auto">The world is full of stories waiting to be told. Enter a location above to uncover its hidden tales.</p>
+        </Card>
+    );
+};
+
+const AboutTeamSection = () => (
+    <Card className="shadow-lg border-primary/20">
+        <CardHeader>
+            <CardTitle className="font-headline text-2xl flex items-center gap-2">
+                <Users /> About Our Team
+            </CardTitle>
+            <CardDescription>The creators behind Lore Explorer.</CardDescription>
+        </CardHeader>
+        <CardContent className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="flex flex-col items-center text-center">
+                <Avatar className="w-24 h-24 mb-4">
+                    <AvatarImage src="https://i.pravatar.cc/150?u=a042581f4e29026704d" alt="Team member 1"/>
+                    <AvatarFallback>JD</AvatarFallback>
+                </Avatar>
+                <h3 className="font-semibold">Jane Doe</h3>
+                <p className="text-sm text-muted-foreground">Lead Developer</p>
+                <p className="text-xs mt-2">Architect of the story engine and finder of cosmic tales.</p>
+            </div>
+            <div className="flex flex-col items-center text-center">
+                <Avatar className="w-24 h-24 mb-4">
+                    <AvatarImage src="https://i.pravatar.cc/150?u=a042581f4e29026704e" alt="Team member 2" />
+                    <AvatarFallback>JS</AvatarFallback>
+                </Avatar>
+                <h3 className="font-semibold">John Smith</h3>
+                <p className="text-sm text-muted-foreground">UI/UX Designer</p>
+                <p className="text-xs mt-2">Designer of stellar interfaces and navigator of user journeys.</p>
+            </div>
+            <div className="flex flex-col items-center text-center">
+                <Avatar className="w-24 h-24 mb-4">
+                    <AvatarImage src="https://i.pravatar.cc/150?u=a042581f4e29026704f" alt="Team member 3" />
+                    <AvatarFallback>AI</AvatarFallback>
+                </Avatar>
+                <h3 className="font-semibold">AI Oracle</h3>
+                <p className="text-sm text-muted-foreground">The Storyteller</p>
+                <p className="text-xs mt-2">The AI that weaves the lore of the universe for your exploration.</p>
+            </div>
+        </CardContent>
+    </Card>
+);
+
+const ContactUsSection = () => {
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const { toast } = useToast();
+
+    const handleContactSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        setIsSubmitting(true);
+        setTimeout(() => {
+            setIsSubmitting(false);
+            toast({
+                title: "Message Sent!",
+                description: "Thank you for reaching out. We'll get back to you soon.",
+            });
+            (e.target as HTMLFormElement).reset();
+        }, 1500);
+    };
+
+    return (
+        <Card className="shadow-lg border-primary/20">
+            <CardHeader>
+                <CardTitle className="font-headline text-2xl flex items-center gap-2">
+                    <Mail /> Contact Us
+                </CardTitle>
+                <CardDescription>Have questions or feedback? Send us a message.</CardDescription>
+            </CardHeader>
+            <CardContent>
+                <form onSubmit={handleContactSubmit} className="grid gap-4">
+                    <div className="grid sm:grid-cols-2 gap-4">
+                        <Input placeholder="Your Name" required/>
+                        <Input type="email" placeholder="Your Email" required/>
+                    </div>
+                    <Textarea placeholder="Your message..." required rows={5} />
+                    <Button type="submit" disabled={isSubmitting} className="w-full sm:w-auto">
+                        {isSubmitting ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : null}
+                        Send Message
+                    </Button>
+                </form>
+            </CardContent>
         </Card>
     );
 };

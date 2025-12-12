@@ -1,10 +1,10 @@
 {
   "placeholderImages": [
     {
-      "id": "welcome-map",
-      "description": "An old, vintage map hinting at adventure and stories.",
-      "imageUrl": "https://images.unsplash.com/photo-1582909184886-fad4767f7bdc?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHx2aW50YWdlJTIwbWFwfGVufDB8fHx8MTc2NTUxODk5Nnww&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "vintage map"
+      "id": "welcome-galaxy",
+      "description": "A swirling galaxy, representing a universe of stories.",
+      "imageUrl": "https://images.unsplash.com/photo-1534796636912-3b95b3ab5986?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxnYWxheHl8ZW58MHx8fHwxNzE3NjExMjMxfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "galaxy space"
     }
   ]
 }
